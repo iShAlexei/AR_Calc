@@ -4,7 +4,7 @@ package ru.shirshin;
  * класс ArabianCalculator, наследует класс Calculator,
  * описывает вычисления с помощью арабских чисел
  */
-class ArabianCalculator extends Calculator {
+class ArabianCalculator extends AbstractCalculator {
 
     private String expression;
 
@@ -24,12 +24,12 @@ class ArabianCalculator extends Calculator {
         int firstNumber = Integer.parseInt(array[0]);
         int secondNumber = Integer.parseInt(array[1]);
 
-        /**
-         * проверяем какой знак действия содержит выражение
-         * так как в конструкторе родительского класса проинициализирован массив
-         * со всеми классами вычислений, 
-         * то получаем объект класса вычислений из массива, вызываем метод operation, 
-         * передаем в параметры первое и второе число
+        /*
+          проверяем какой знак действия содержит выражение
+          так как в конструкторе родительского класса проинициализирован массив
+          со всеми классами вычислений,
+          то получаем объект класса вычислений из массива, вызываем метод operation,
+          передаем в параметры первое и второе число
          */
         if (expression.contains("+")) {
             result = calculations[0].operation(firstNumber, secondNumber);

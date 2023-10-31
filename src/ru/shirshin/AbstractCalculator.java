@@ -1,10 +1,10 @@
 package ru.shirshin;
 
 /*
-* абстрактный класс Calculator
-* @param Calculation - массив всех вычислений
+* класс AbstractCalculator
+* @param calculations - массив всех вычислений
  */
-abstract class Calculator {
+abstract class AbstractCalculator {
 
     protected Calculation[] calculations;
 
@@ -12,7 +12,7 @@ abstract class Calculator {
      * в конструкторе инициализируем массив калькуляторов 
      * и добавляем все классы отвечающие за операции вычислений
      */
-    public Calculator() {
+    public AbstractCalculator() {
         calculations = new Calculation[]{
             new Summa(), 
             new Subtract(), 
