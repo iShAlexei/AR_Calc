@@ -25,11 +25,14 @@ public class RomainCalculator extends AbstractCalculator {
         int secondNumber = 0;
 
         for (int i = 0; i < expressionArray.length; i++) {
+
             String[] romainDigitArray = expressionArray[i].split("");   // разделяем полученные строки
+
+            checkIncorrectSequenceOfRomainSymbol(romainDigitArray); // проверяет корректность ввода данных пользователем
             if (i == 0) {
-                firstNumber = romainToArabian(romainDigitArray); // первое число
+                firstNumber = romainToArabian(romainDigitArray); // получаем первое число
             } else {
-                secondNumber = romainToArabian(romainDigitArray); // второе число
+                secondNumber = romainToArabian(romainDigitArray); // получаем второе число
             }
         }
 
@@ -120,6 +123,41 @@ public class RomainCalculator extends AbstractCalculator {
         }
     }
 
+    /**
+     * Метод, проверяет корректность ввода с данных пользователем
+     * например следующие виды выражений, IIVI, VV, VX, IIII, VVVV
+     * @param array - массив римских цифр
+     */
+    private void checkIncorrectSequenceOfRomainSymbol(String[] array) {
+
+        StringBuilder value = new StringBuilder();
+        for (String str: array) {
+            value.append(str);
+        }
+        int size = array.length;
+
+        if (size > 4 || value.toString().equals("IIII") || value.toString().equals("VVVV") || value.toString().equals("VVV")) {
+            throw new RuntimeException("Incorrect sequence of romain symbols");
+        }
+
+        if (size == 2) {
+            if (array[0].equals("I") && (array[1].equals("I") || array[1].equals("V") || array[1].equals("X"))) {
+                return;
+            }
+            if (array[0].equals("V") && (array[1].equals("V") || array[1].equals("X"))) {
+                throw new RuntimeException("Incorrect sequence of romain symbols");
+            }
+        }
+
+        for (int i = 0; i < size - 1; i++) {
+            for (int j = i + 1; j < size; j++) {
+                if (RomainDigits.valueOf(array[i]).getArabian() < RomainDigits.valueOf(array[j]).getArabian()) {
+                    throw new RuntimeException("Incorrect sequence of romain symbols");
+                }
+            }
+        }
+    }
+
     /*
      * метод, обратная конвертация из римских в арабские
      * нужен для получения результата вычисления
@@ -128,15 +166,13 @@ public class RomainCalculator extends AbstractCalculator {
 
         StringBuilder str = new StringBuilder();
 
-        int count = 0;
-
         int identicalNumbersCounter = 1; // счетчик одинаковых чисел типа: IIII, XXXX, VIIII
 
         RomainDigits[] romainDigits = RomainDigits.values();    // получаем массив всех перечислений
 
         int i = romainDigits.length - 1;    // переменная для прохода массива enum с конца
 
-        while (count < romainDigits.length) {
+        while (number != 0) {
 
             // последовательно с конца массива enum проходим по всем значениям и выполняем проверку
             if (number / romainDigits[i].getArabian() != 0) {
@@ -147,33 +183,37 @@ public class RomainCalculator extends AbstractCalculator {
                 if (identicalNumbersCounter == 4) { // проверка на числа с цифрами 4 и 9 в десятках и единицах
 
                     /*
-                    * если находим совпадение в строке определяем индексы совпадения,
-                    * удаляем по найденным индексам,
-                    * затем вставляем с индекса первого найденного символа указанную строку
+                     * если находим совпадение в строке определяем индексы совпадения,
+                     * удаляем по найденным индексам,
+                     * затем вставляем с индекса первого найденного символа указанную строку
                      */
-                    if (str.toString().contains("VIIII")) {
+                    if (str.toString().contains("VIII")) {
+
                         int firstIndex = str.indexOf("V");
                         int lastIndex = str.lastIndexOf("I");
-                        str.delete(firstIndex, lastIndex + 1);
-                        str.insert(firstIndex, "IX");
+
+                        str.replace(firstIndex, lastIndex + 1,"IX");
                     }
                     if (str.toString().contains("IIII")) {
+
                         int firstIndex = str.indexOf("I");
                         int lastIndex = str.lastIndexOf("I");
-                        str.delete(firstIndex, lastIndex + 1);
-                        str.insert(firstIndex, "IV");
+
+                        str.replace(firstIndex, lastIndex + 1,"IV");
                     }
                     if (str.toString().contains("XXXX")) {
+
                         int firstIndex = str.indexOf("X");
                         int lastIndex = str.lastIndexOf("X");
-                        str.delete(firstIndex, lastIndex + 1);
-                        str.insert(firstIndex, "XL");
+
+                        str.replace(firstIndex, lastIndex + 1,"XL");
                     }
                     if (str.toString().contains("LXL")) {
+
                         int firstIndex = str.indexOf("L");
                         int lastIndex = str.lastIndexOf("L");
-                        str.delete(firstIndex, lastIndex + 1);
-                        str.insert(firstIndex, "XC");
+
+                        str.replace(firstIndex, lastIndex + 1,"XC");
                     }
                     identicalNumbersCounter = 0;
                 }
@@ -181,8 +221,8 @@ public class RomainCalculator extends AbstractCalculator {
             }
             identicalNumbersCounter = 0;
             i--;
-            count++;
         }
         return str.toString();
     }
+
 }
