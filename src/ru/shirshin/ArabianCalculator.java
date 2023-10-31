@@ -6,7 +6,10 @@ package ru.shirshin;
  */
 class ArabianCalculator extends Calculator {
 
-    public ArabianCalculator() {
+    private String expression;
+
+    public ArabianCalculator(String expression) {
+        this.expression = expression;
     }
 
     /**
@@ -15,7 +18,7 @@ class ArabianCalculator extends Calculator {
      * @return String(результат вычислений)
      */
     @Override
-    public String getResult(String expression) {
+    public String getResult() {
         int result = 0;
         String[] array = expression.split("\\s*[/*+-]\\s*"); // разделяем выражение по знакам действий
         int firstNumber = Integer.parseInt(array[0]);

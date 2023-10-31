@@ -20,7 +20,7 @@ abstract class Calculator {
             new Division()};
     }
 
-    protected abstract String getResult(String expression);
+    protected abstract String getResult();
 
     public Calculation[] getCalculator() {
         return calculations;
