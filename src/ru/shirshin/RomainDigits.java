@@ -1,5 +1,8 @@
 package ru.shirshin;
 
+/**
+ * перечисление RomainDigits, сопоставляет римские числа с арабскими
+ */
 enum RomainDigits {
 
     I("I",1), 
