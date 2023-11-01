@@ -4,7 +4,7 @@ package ru.shirshin;
  * класс, наследует класс AbstractCalculator,
  * описывает вычисления с помощью римских чисел
  */
-public class RomainCalculator extends AbstractCalculator {
+class RomainCalculator extends AbstractCalculator {
 
     private String expression;
 

@@ -1,7 +1,7 @@
 package ru.shirshin;
 
 /**
- * класс ArabianCalculator, наследует класс Calculator,
+ * класс ArabianCalculator, наследует класс AbstractCalculator,
  * описывает вычисления с помощью арабских чисел
  */
 class ArabianCalculator extends AbstractCalculator {
