@@ -39,7 +39,17 @@ public class MainApp {
         return getCalculator(input).getResult();
     }
 
+    static void welcome(){
+        System.out.println("\nПримеры ввода арифметических выражений: ");
+        System.out.println("Сложение:\tI+I\t1+1");
+        System.out.println("Вычетание:\tV- I\t5- 1");
+        System.out.println("Умножение:\tX * V\t10 * 5");
+        System.out.println("Деление:\tIX /III\t9 /3\n");
+    }
+
     public static void main(String[] args) {
+
+        welcome();
 
         try (Scanner scanner = new Scanner(System.in);) {
             while (true) {
