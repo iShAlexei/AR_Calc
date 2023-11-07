@@ -21,9 +21,5 @@ abstract class AbstractCalculator {
     }
 
     protected abstract String getResult();
-
-    public Calculation[] getCalculator() {
-        return calculations;
-    }
 }
 
